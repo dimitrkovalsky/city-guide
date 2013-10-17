@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>Request</title>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script>
+
+        function sendRequest() {
+            $.ajax({
+                type: "POST",
+                url: "api",
+                data: { request: $('textarea#request').val(),ak: $('input#ak').val() }
+            }).done(function( msg ) {
+                        $('#response').text(msg);
+                    });
+        }
+    </script>
+</head>
+<body>
+<h2>Request</h2>
+<form>
+    Token: <input type="text" name="ak" value="1" style="width:300px" id="ak" ><br/>
+    <textarea name="request" cols="50" rows="10" id="request">{"requestData":null,"requestType":1}</textarea><br/>
+    <input type="button" name="submit" value="Send request" onclick="sendRequest()"/>
+</form> 
+<h2>Response</h2>
+<div id="response"></div>
+</body>
+</html>

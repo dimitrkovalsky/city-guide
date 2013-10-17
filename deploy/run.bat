@@ -1,0 +1,1 @@
+java -jar jetty-runner.jar city-guide-1.0-SNAPSHOT.war
