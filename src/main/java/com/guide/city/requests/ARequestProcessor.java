@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public abstract class ARequestProcessor {
 
-    private HttpServletRequest httpRequest;
+    protected HttpServletRequest httpRequest;
     private GenericRequest genericRequest;
     private ACommand command;
 

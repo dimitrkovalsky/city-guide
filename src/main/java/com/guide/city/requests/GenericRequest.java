@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 public class GenericRequest
 {
     /**
-     * Request type that represents Command Object
+     * Request type that represents Handler Object
      */
     private int requestType;
 

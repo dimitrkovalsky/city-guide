@@ -522,7 +522,7 @@
 
                 if (!format) {
                     format = [];
-                    // find out how to copy
+                    // findByToken out how to copy
                     format.push({ x: true, number: true, required: true });
                     format.push({ y: true, number: true, required: true });
 
@@ -624,7 +624,7 @@
                 executeHooks(hooks.processDatapoints, [ s, s.datapoints]);
             }
 
-            // second pass: find datamax/datamin for auto-scaling
+            // second pass: findByToken datamax/datamin for auto-scaling
             for (i = 0; i < series.length; ++i) {
                 s = series[i];
                 points = s.datapoints.points,
@@ -909,7 +909,7 @@
         }
 
         function allocateAxisBoxFirstPhase(axis) {
-            // find the bounding box of the axis by looking at label
+            // findByToken the bounding box of the axis by looking at label
             // widths/heights and ticks, make room by diminishing the
             // plotOffset
 
@@ -1014,7 +1014,7 @@
                     setTicks(axis);
                     snapRangeToTicks(axis, axis.ticks);
 
-                    // find labelWidth/Height for axis
+                    // findByToken labelWidth/Height for axis
                     measureTickLabels(axis);
                 });
 
@@ -1562,7 +1562,7 @@
                 ctx.strokeStyle = axis.options.tickColor || $.color.parse(axis.options.color).scale('a', 0.22).toString();
                 ctx.lineWidth = 1;
 
-                // find the edges
+                // findByToken the edges
                 if (axis.direction == "x") {
                     x = 0;
                     if (t == "full")
@@ -1889,7 +1889,7 @@
                     
                     // else it's a bit more complicated, there might
                     // be a flat maxed out rectangle first, then a
-                    // triangular cutout or reverse; to find these
+                    // triangular cutout or reverse; to findByToken these
                     // keep track of the current x values
                     var x1old = x1, x2old = x2;
 
