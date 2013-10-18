@@ -18,7 +18,8 @@
     </repositories>
 
     <dependencies>
-        <dependency>
+
+       <dependency>
             <groupId>com.google.code.morphia</groupId>
             <artifactId>morphia</artifactId>
             <version>0.99.1-SNAPSHOT</version>
