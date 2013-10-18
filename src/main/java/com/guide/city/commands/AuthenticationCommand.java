@@ -1,6 +1,7 @@
 package com.guide.city.commands;
 
 
+import com.guide.city.annotations.Input;
 import com.guide.city.beans.interfaces.IAuthenticationBean;
 import com.guide.city.entities.SessionEntity;
 import com.guide.city.exceptions.ApplicationException;
@@ -17,8 +18,9 @@ import java.util.logging.Logger;
 
 public class AuthenticationCommand extends ACommand implements Validatable {
 
+    @Input
     private AuthenticationRequestEntity requestEntity;
-    private Logger logger = Logger.getLogger(AuthenticationCommand.class.getName());
+
 
     @Override
     public GenericResponse execute() throws ApplicationException {

@@ -9,6 +9,4 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value= ElementType.FIELD)
-public @interface Handler {
-    public Class<? extends ACommand> value();
-}
+public @interface Input { }
