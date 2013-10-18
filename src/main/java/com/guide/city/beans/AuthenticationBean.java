@@ -12,7 +12,6 @@ import com.guide.city.requests.entities.AuthenticationRequestEntity;
 import org.bson.types.ObjectId;
 
 import java.util.Date;
-import java.util.UUID;
 
 public class AuthenticationBean implements IAuthenticationBean {
 

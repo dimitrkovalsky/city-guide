@@ -2,11 +2,9 @@ package com.guide.city.dao;
 
 import com.google.code.morphia.Datastore;
 import com.google.code.morphia.dao.BasicDAO;
-import com.google.code.morphia.query.QueryImpl;
 import com.guide.city.entities.SessionEntity;
 import com.guide.city.exceptions.DAOException;
 import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
 import org.bson.types.ObjectId;
 
 public class SessionDAO extends BasicDAO<SessionEntity, ObjectId> {
