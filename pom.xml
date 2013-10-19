@@ -21,7 +21,6 @@
 	</repositories>
 
 	<dependencies>
-
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
@@ -80,8 +79,7 @@
 			<version>${jetty.version}</version>
 		</dependency>
 
-
-		<!-- Junit -->
+      		<!-- Junit -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -110,6 +108,13 @@
 			<artifactId>json</artifactId>
 			<version>20090211</version>
 		</dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-annotations</artifactId>
+            <version>8.1.10.v20130312</version>
+            <scope>test</scope>
+        </dependency>
 	</dependencies>
 
 	<build>
@@ -155,10 +160,26 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
-					<webXml>src\main\webapp\WEB-INF\web.xml</webXml>
+					<webXml>src\main\resources\webapp\WEB-INF\web.xml</webXml>
 
 				</configuration>
 			</plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2</version>
+                <configuration>
+                    <classpathScope>test</classpathScope>
+                    <executable>java</executable>
+                    <arguments>
+                        <argument>-cp</argument>
+                        <classpath/>
+                        <argument>com.guide.city.Runner</argument>
+                        <argument>8080</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
 
 		</plugins>
 	</build>
