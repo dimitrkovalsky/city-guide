@@ -6,6 +6,8 @@ import com.google.code.morphia.annotations.Id;
 import com.guide.city.helpers.Views;
 import org.codehaus.jackson.map.annotate.JsonView;
 
+import java.util.Arrays;
+
 @Entity(value = "places", noClassnameStored = true)
 public class PlaceEntity {
 
@@ -24,12 +26,15 @@ public class PlaceEntity {
     private String formattedAddress;
 
     @JsonView(Views.Public.class)
-    private String types;
+    private String[] types;
 
     @JsonView(Views.Public.class)
     private String information;
 
-    public PlaceEntity(){}
+    @JsonView(Views.Public.class)
+    private String[] imageUrl;
+
+    public PlaceEntity() {}
 
     public PlaceEntity(Integer id) {
         setId(id);
@@ -59,11 +64,11 @@ public class PlaceEntity {
         this.name = name;
     }
 
-    public String getTypes() {
+    public String[] getTypes() {
         return types;
     }
 
-    public void setTypes(String types) {
+    public void setTypes(String[] types) {
         this.types = types;
     }
 
@@ -83,6 +88,14 @@ public class PlaceEntity {
         this.information = information;
     }
 
+    public String[] getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String[] imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -90,8 +103,9 @@ public class PlaceEntity {
                 ", location=" + location +
                 ", name='" + name + '\'' +
                 ", formattedAddress='" + formattedAddress + '\'' +
-                ", types='" + types + '\'' +
+                ", types=" + Arrays.toString(types) +
                 ", information='" + information + '\'' +
+                ", imageUrl=" + Arrays.toString(imageUrl) +
                 '}';
     }
 }
