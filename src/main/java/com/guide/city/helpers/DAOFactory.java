@@ -49,4 +49,8 @@ public class DAOFactory {
     public static LocationTimerDAO getLocationTimerDAO(){
         return new LocationTimerDAO(datastore);
     }
+
+    public static StreetDAO getStreetDAO(){
+        return  new StreetDAO(datastore);
+    }
 }
