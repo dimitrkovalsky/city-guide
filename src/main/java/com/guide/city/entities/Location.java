@@ -2,13 +2,12 @@ package com.guide.city.entities;
 
 
 import com.google.code.morphia.annotations.Embedded;
-import com.google.code.morphia.annotations.Entity;
-import com.guide.city.annotations.NotNull;
 import com.guide.city.helpers.Views;
 import org.codehaus.jackson.map.annotate.JsonView;
 
 @Embedded
 public class Location {
+
     @JsonView(Views.Public.class)
     private Double latitude;
     @JsonView(Views.Public.class)
@@ -43,5 +42,9 @@ public class Location {
                 "latitude=" + latitude +
                 ", longitude=" + longitude +
                 '}';
+    }
+
+    public String toGoogleStringFormat() {
+        return getLatitude().toString() + "," + getLongitude().toString();
     }
 }

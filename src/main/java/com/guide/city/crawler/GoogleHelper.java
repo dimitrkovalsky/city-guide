@@ -3,12 +3,8 @@ package com.guide.city.crawler;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Multiset;
+import com.google.common.collect.Maps;
 import com.guide.city.entities.Location;
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.util.JSONPObject;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,6 +18,8 @@ import java.util.Map;
 public class GoogleHelper {
 
     public final static String GOOGLE_APPLICATION_KEY = "AIzaSyCd5bBuiljMgprbV2NbHZwVT4V-A2_nKE8";
+
+    public final static String GOOGLE_GEOCODE_URL = "https://maps.googleapis.com/maps/api/geocode/json";
     public final static String GOOGLE_PLACE_DETAILS_URL = "https://maps.googleapis.com/maps/api/place/details/json";
     public final static String GOOGLE_TEXT_SEARCH_URL = "https://maps.googleapis.com/maps/api/place/textsearch/json";
 
@@ -65,5 +63,16 @@ public class GoogleHelper {
         } finally {
             is.close();
         }
+    }
+
+    public static String getStreetName(Location location) throws IOException, JSONException {
+        Map<String, String> params = Maps.newHashMap();
+        params.put("language", "ru");// язык данных, на котором мы хотим получить
+        params.put("sensor", "false");// исходит ли запрос на геокодирование от устройства с датчиком местоположения
+        // текстовое значение широты/долготы, для которого следует получить ближайший понятный человеку адрес, долгота и
+        // широта разделяется запятой, берем из предыдущего примера
+        params.put("latlng", location.toGoogleStringFormat());
+        String streetName = GoogleResponseCreator.getStreet(params);
+        return streetName.substring(0,streetName.indexOf(","));
     }
 }

@@ -63,4 +63,14 @@ public class StreetEntity {
     public void setInformation(String information) {
         this.information = information;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", formattedAddress='" + formattedAddress + '\'' +
+                ", information='" + information + '\'' +
+                '}';
+    }
 }
