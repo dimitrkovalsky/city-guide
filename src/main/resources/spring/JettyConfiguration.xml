@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+	<bean id="factoryServletHandler" class="com.guide.city.servlets.FactoryServletHandler">
+		<property name="contextPath" value="/" />
+		<property name="resourceBase" value="src/main/resources/webapp" />
+	</bean>
+
+	<!-- create and starting server -->
+	<bean id="server" class="org.eclipse.jetty.server.Server"
+		init-method="start" destroy-method="stop">
+		<property name="connectors">
+			<list>
+				<bean id="Connector" class="org.eclipse.jetty.server.nio.SelectChannelConnector">
+					<property name="port" value="8080" />
+				</bean>
+			</list>
+		</property>
+		<property name="handler" ref="factoryServletHandler" />
+	</bean>
+
+</beans> 

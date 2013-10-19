@@ -1,9 +1,13 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta charset="utf-8">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>Видатні місця</title>
+<title>Таблиця лідерів</title>
 
 <!-- Bootstrap core CSS -->
 <link href="css/bootstrap.css" rel="stylesheet">
@@ -18,16 +22,15 @@
 	font-weight: bold; 
 	font-family: inherit;
 }
-
-
-.lederTabelePlaces thead tr {
-	background-color: #aa11aa; 
+.lederTabel thead tr {
+	background-color: #aa99FF; 
 	color: white; 
 	text-shadow: 1px 1px 1px black;
 }
+
 .footer {
 	background-color: #EEEEEE;
-	height: 50px;
+	height: 20px;
 }
 </style>
 </head>
@@ -52,17 +55,41 @@
 	
 	function signinCallback(authResult) {
 		  if (authResult['access_token']) {
-		    // Update the app to reflect a signed in user
-		    // Hide the sign-in button now that the user is authorized, for example:
-		    //	alert(authResult['access_token']);
-		    var access = $("#acc").val(authResult['access_token']);
-
+		    $("#acc").val(authResult['access_token']);		    
+		    sendAjax(authResult['access_token']);
 		    
-		    $.ajax({
+		    var url = 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + authResult['access_token']; 
+		    getUserInfo(url);
+		    
+		    alert(json);
+		    
+		    document.getElementById('signinButton').setAttribute('style', 'display: none');
+		  } else if (authResult['error']) {
+		    // Update the app to reflect a signed out user
+		    // Possible error values:
+		    //   "user_signed_out" - User is signed-out
+		    //   "access_denied" - User denied access to your app
+		    //   "immediate_failed" - Could not automatically log in the user
+		    console.log('Sign-in state: ' + authResult['error']);
+		  }
+		}
+	
+	function getUserInfo(url){
+		  $.ajax({
 		        type: 'POST',
-		        url: 'http://localhost:8080/google-auth',
+		        url: url
+		    }).done(function (response) {
+		   		alert(response);
+		    });
+	}
+	
+	
+	function sendAjax(token){
+		  $.ajax({
+		        type: 'POST',
+		        url: '/google-auth',
 		        data: { 
-		         'token': access
+		         'token': token
 		        }
 		    }).done(function (response) {
 		      if(response.status == '200')
@@ -77,18 +104,8 @@
 		       //$('#error').text("Error : " + response.message);
 		      }
 		    });
-		    
-		    
-		    document.getElementById('signinButton').setAttribute('style', 'display: none');
-		  } else if (authResult['error']) {
-		    // Update the app to reflect a signed out user
-		    // Possible error values:
-		    //   "user_signed_out" - User is signed-out
-		    //   "access_denied" - User denied access to your app
-		    //   "immediate_failed" - Could not automatically log in the user
-		    console.log('Sign-in state: ' + authResult['error']);
-		  }
-		}
+	}
+	
 	</script>
 	<div class="navbar navbar-inverse navbar-fixed-top">
 		<div class="navbar" style="background-color: #363B3F;">
@@ -113,7 +130,7 @@
 							    data-clientid="977494659512.apps.googleusercontent.com"
 							    data-cookiepolicy="single_host_origin"
 							    data-requestvisibleactions="http://schemas.google.com/AddActivity"
-							    data-scope="https://www.googleapis.com/auth/plus.login">
+							    data-scope="https://www.googleapis.com/auth/userinfo.profile">
 					  		</span>
 						</span>
 					</div>
@@ -124,7 +141,9 @@
 
 	<div class="container" style="margin-top: 100px;">
 		
-		<h1>Рейтинг видтних місць</h1>
+		<input type="text" id="acc" />
+		<a style="cursor: pointer;" class="btn" onclick="tt();"></a>
+		<h1>Таблиця лідерів</h1>
 		
 		<span class="selectText">Країна:</span>
 		<select id="select_country">
@@ -143,14 +162,13 @@
 		</select>
 		
 		
-		<table class="table table-bordered lederTabelePlaces">
+		<table class="table table-bordered lederTabel">
 			<thead>
-				<tr>
+				<tr >
 					<th>Місце</th>
-					<th>Назва</th>
-					<th>Кількість голосів</th>
-					<th>Кількість відвідувачів</th>
-					<th>Голосування</th>
+					<th>ФІО</th>
+					<th>Кількість Балів</th>
+					<th>Час</th>
 					<th style="text-align: center;">Профіль</th>
 				</tr>
 			</thead>
@@ -160,9 +178,22 @@
 					<td>Вася</td>
 					<td>2600</td>
 					<td>18 год 15 хв</td>
-					<td>+ -</td>
 					<td style="text-align: center;"><a href="#profil" class="btn btn-success">Переглянути</a></td>
-				</tr>			
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>Вася2</td>
+					<td>2600</td>
+					<td>18 год 152 хв</td>
+					<td style="text-align: center;"><a href="#profil" class="btn btn-success">Переглянути</a></td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>Вася2</td>
+					<td>2600</td>
+					<td>18 год 152 хв</td>
+					<td style="text-align: center;"><a href="#profil" class="btn btn-success">Переглянути</a></td>
+				</tr>
 			</tbody>
 		</table>
 
