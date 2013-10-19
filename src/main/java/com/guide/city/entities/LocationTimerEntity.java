@@ -4,10 +4,15 @@ import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Id;
 import com.google.code.morphia.annotations.Indexed;
 import com.guide.city.helpers.Views;
+import org.bson.types.ObjectId;
 import org.codehaus.jackson.map.annotate.JsonView;
 
 @Entity(value = "location_timer", noClassnameStored = true)
 public class LocationTimerEntity {
+
+    @Id
+    @JsonView(Views.Public.class)
+    private ObjectId id;
 
     @Indexed
     @JsonView(Views.Public.class)
@@ -19,6 +24,9 @@ public class LocationTimerEntity {
 
     @JsonView(Views.Public.class)
     private Long started;
+
+    @JsonView(Views.Public.class)
+    private Integer timeLeft;
 
     public String getDeviceId() {
         return deviceId;
@@ -42,5 +50,13 @@ public class LocationTimerEntity {
 
     public void setStarted(Long started) {
         this.started = started;
+    }
+
+    public Integer getTimeLeft() {
+        return timeLeft;
+    }
+
+    public void setTimeLeft(Integer timeLeft) {
+        this.timeLeft = timeLeft;
     }
 }

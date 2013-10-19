@@ -1,10 +1,5 @@
 package com.guide.city.responses;
 
-/**
- * User: Dimitr
- * Date: 25.08.12
- * Time: 14:21
- */
 public class GenericResponse {
     private int requestType;
     private int responseType;

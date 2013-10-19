@@ -3,10 +3,7 @@ package com.guide.city.helpers;
 
 import com.google.code.morphia.Datastore;
 import com.google.code.morphia.Morphia;
-import com.guide.city.dao.AccountDAO;
-import com.guide.city.dao.GeolocationDAO;
-import com.guide.city.dao.PlaceDAO;
-import com.guide.city.dao.SessionDAO;
+import com.guide.city.dao.*;
 import com.mongodb.Mongo;
 
 import java.net.UnknownHostException;
@@ -43,5 +40,13 @@ public class DAOFactory {
 
     public static PlaceDAO getPlaceDAO(){
         return new PlaceDAO(datastore);
+    }
+
+    public static VisitedPlacesDAO getVisitedPlacesDAO(){
+        return new VisitedPlacesDAO(datastore);
+    }
+
+    public static LocationTimerDAO getLocationTimerDAO(){
+        return new LocationTimerDAO(datastore);
     }
 }
