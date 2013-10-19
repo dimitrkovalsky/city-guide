@@ -8,6 +8,8 @@ import com.guide.city.helpers.DAOFactory;
 import org.bson.types.ObjectId;
 import org.junit.Test;
 
+import java.util.Date;
+
 public class GeolocationDAOTest {
     @Test
     public void testMethod() throws Exception {
@@ -22,7 +24,7 @@ public class GeolocationDAOTest {
         entity.setDeviceId("100500");
         entity.setAccuracy(100f);
         entity.setLocation(new Location(105.4d, 104.8d));
-        entity.setTimestamp(System.currentTimeMillis());
+        entity.setTimestamp(new Date());
         dao.save(entity);
     }
 

@@ -5,11 +5,6 @@ import com.guide.city.entities.SessionEntity;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * User: Dimitr
- * Date: 25.08.12
- * Time: 12:17
- */
 public class GenericRequest
 {
     /**

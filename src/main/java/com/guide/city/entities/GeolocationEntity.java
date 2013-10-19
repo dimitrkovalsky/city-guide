@@ -4,7 +4,10 @@ import com.google.code.morphia.annotations.*;
 import com.google.code.morphia.utils.IndexDirection;
 import com.guide.city.annotations.NotNull;
 import com.guide.city.helpers.Views;
+import com.guide.city.requests.entities.GeolocationRequestEntity;
 import org.codehaus.jackson.map.annotate.JsonView;
+
+import java.util.Date;
 
 @Entity(value = "geolocations", noClassnameStored = true)
 public class GeolocationEntity {
@@ -21,7 +24,16 @@ public class GeolocationEntity {
     private Float accuracy;
 
     @JsonView(Views.Public.class)
-    private Long timestamp;
+    private Date timestamp;
+
+    public GeolocationEntity() { }
+
+    public GeolocationEntity(String deviceId, GeolocationRequestEntity request) {
+        this.deviceId = deviceId;
+        accuracy = request.getAccuracy();
+        timestamp = new Date();
+        location = new Location(request.getLatitude(), request.getLongitude());
+    }
 
     public String getDeviceId() {
         return deviceId;
@@ -39,11 +51,11 @@ public class GeolocationEntity {
         this.accuracy = accuracy;
     }
 
-    public Long getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Long timestamp) {
+    public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
 
