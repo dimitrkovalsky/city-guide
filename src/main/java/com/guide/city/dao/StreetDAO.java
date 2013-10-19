@@ -2,6 +2,7 @@ package com.guide.city.dao;
 
 import com.google.code.morphia.Datastore;
 import com.google.code.morphia.dao.BasicDAO;
+import com.guide.city.entities.Location;
 import com.guide.city.entities.StreetEntity;
 import com.guide.city.exceptions.DAOException;
 
@@ -42,5 +43,14 @@ public class StreetDAO extends BasicDAO<StreetEntity, Integer>    {
 
     public List<StreetEntity> findAll() throws DAOException {
         return getDatastore().find(StreetEntity.class).asList();
+    }
+
+    public StreetEntity findNear(Location location) throws DAOException {
+        try {
+            return null;
+        }
+        catch (Exception e) {
+            throw new DAOException(e);
+        }
     }
 }

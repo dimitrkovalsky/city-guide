@@ -2,10 +2,7 @@ package com.guide.city.beans;
 
 
 import com.guide.city.beans.interfaces.IGeolocationBean;
-import com.guide.city.dao.GeolocationDAO;
-import com.guide.city.dao.LocationTimerDAO;
-import com.guide.city.dao.PlaceDAO;
-import com.guide.city.dao.VisitedPlacesDAO;
+import com.guide.city.dao.*;
 import com.guide.city.entities.*;
 import com.guide.city.exceptions.ApplicationException;
 import com.guide.city.exceptions.DAOException;
@@ -60,7 +57,11 @@ public class GeolocationBean implements IGeolocationBean {
         return result;
     }
 
-    private GenericResponse checkInterestingInformation(GeolocationEntity geolocationEntity, GenericRequest request) {
+    private GenericResponse checkInterestingInformation(GeolocationEntity geolocationEntity, GenericRequest request)
+            throws DAOException {
+        VisitedPlacesDAO visitedPlacesDAO = DAOFactory.getVisitedPlacesDAO();
+        StreetDAO streetDAO = DAOFactory.getStreetDAO();
+        StreetEntity streetEntity = streetDAO.findNear(geolocationEntity.getLocation());
         return null;
     }
 
