@@ -5,7 +5,6 @@ import com.google.code.morphia.Datastore;
 import com.google.code.morphia.Morphia;
 import com.guide.city.dao.AccountDAO;
 import com.guide.city.dao.GeolocationDAO;
-import com.guide.city.dao.PlaceDAO;
 import com.guide.city.dao.SessionDAO;
 import com.mongodb.Mongo;
 
@@ -39,9 +38,5 @@ public class DAOFactory {
 
     public static GeolocationDAO getGeolocationDAO() {
         return new GeolocationDAO(datastore);
-    }
-
-    public static PlaceDAO getPlaceDAO() {
-        return new PlaceDAO(datastore);
     }
 }
