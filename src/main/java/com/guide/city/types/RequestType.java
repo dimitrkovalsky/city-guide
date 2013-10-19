@@ -23,4 +23,6 @@ public interface RequestType {
 
     @Handler(LocationChangedCommand.class)
     public static int RT_LOCATION_CHANGED = 110;
+
+    public static  int LOCATION_COMPLETED = 120;
 }

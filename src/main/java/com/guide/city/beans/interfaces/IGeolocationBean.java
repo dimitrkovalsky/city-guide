@@ -9,4 +9,7 @@ import com.guide.city.responses.GenericResponse;
 public interface IGeolocationBean {
     public GenericResponse locationChanged(GeolocationRequestEntity requestEntity, SessionEntity session, GenericRequest request)
             throws ApplicationException;
+
+    GenericResponse locationCompleted(SessionEntity session, GenericRequest request)
+            throws ApplicationException;
 }

@@ -8,4 +8,6 @@ package com.guide.city.types;
 public interface ResponseType {
     public static int PLACE_FOUND = 111;
     public static int INTERESTING_INFORMATION = 112;
+    public static int LOCATION_COMPLETED = 121;
+    public static int TIME_LEFT = 122;
 }

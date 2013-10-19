@@ -46,7 +46,8 @@ public class VisitedPlacesEntity {
     public void addVisitedPlace(Integer id) {
         if (places == null)
             places = new ArrayList<Integer>();
-        places.add(id);
+        if (!places.contains(id))
+            places.add(id);
     }
 
     @Override
@@ -70,7 +71,8 @@ public class VisitedPlacesEntity {
     public void addVisitedStreet(Integer id) {
         if (streets == null)
             streets = new ArrayList<Integer>();
-        streets.add(id);
+        if (!streets.contains(id))
+            streets.add(id);
     }
 
     public boolean checkVisitedStreet(Integer id) {
