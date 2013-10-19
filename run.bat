@@ -1,0 +1,1 @@
+mvn exec:exec -DargumentA=city-guide-1.0-SNAPSHOT.war
