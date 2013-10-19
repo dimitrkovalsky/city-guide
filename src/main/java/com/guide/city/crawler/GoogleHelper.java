@@ -18,11 +18,7 @@ import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.Map;
 
-/**
- * User: Maxxis
- * Date: 18.10.13
- * Time: 21:19
- */
+
 public class GoogleHelper {
 
     public final static String GOOGLE_APPLICATION_KEY = "AIzaSyCd5bBuiljMgprbV2NbHZwVT4V-A2_nKE8";

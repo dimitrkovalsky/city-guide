@@ -1,5 +1,6 @@
 package com.guide.city.entities;
 
+import com.google.code.morphia.annotations.Embedded;
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Id;
 import com.guide.city.helpers.Views;
@@ -12,8 +13,9 @@ public class PlaceEntity {
     @JsonView(Views.Key.class)
     private Integer id;
 
+    @Embedded
     @JsonView(Views.Public.class)
-    private Location geometry;
+    private Location location;
 
     @JsonView(Views.Public.class)
     private String name;
@@ -41,12 +43,12 @@ public class PlaceEntity {
         this.id = id;
     }
 
-    public Location getGeometry() {
-        return geometry;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setGeometry(Location geometry) {
-        this.geometry = geometry;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public String getName() {
@@ -85,7 +87,7 @@ public class PlaceEntity {
     public String toString() {
         return "{" +
                 "id=" + id +
-                ", geometry=" + geometry +
+                ", location=" + location +
                 ", name='" + name + '\'' +
                 ", formattedAddress='" + formattedAddress + '\'' +
                 ", types='" + types + '\'' +
