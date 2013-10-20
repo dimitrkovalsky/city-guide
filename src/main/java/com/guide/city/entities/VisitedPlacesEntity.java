@@ -24,7 +24,6 @@ public class VisitedPlacesEntity {
     private Integer status;
     @JsonView(Views.Public.class)
     private Integer lastPoints;
-
     @JsonView(Views.Public.class)
     private Long time;
 
@@ -78,12 +77,14 @@ public class VisitedPlacesEntity {
     public void addVisitedStreet(Integer id) {
         if (streets == null)
             streets = new ArrayList<Integer>();
-        if (!streets.contains(id))
-            streets.add(id);
+        streets.add(id);
     }
 
     public boolean checkVisitedStreet(Integer id) {
-        return getStreets().contains(id);
+        if (streets == null)
+            return false;
+        else
+            return streets.contains(id);
     }
 
     public Integer getStatus() {

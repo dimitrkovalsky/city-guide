@@ -19,7 +19,7 @@ public class StreetDAOTest {
 
     @Test
     public void testMethod() throws Exception {
-        insert();
+      //  insert();
         findByName();
         //        update();
         //        find();
@@ -55,7 +55,8 @@ public class StreetDAOTest {
 
     public void findByName() throws DAOException {
         StreetDAO dao = DAOFactory.getStreetDAO();
-        System.out.println(dao.findNear(new Location(49.237319, 28.487782)));
+        StreetEntity streetEntity = dao.findNear(new Location(49.237319, 28.487782));
+        System.out.println(streetEntity);
     }
 
     private void findAll() throws Exception {

@@ -28,13 +28,13 @@ public class BodyValidator {
     private void extractInput(ACommand command)
             throws IllegalAccessException, InstantiationException, ValidationException {
         Class<?> clazz = command.getClass();
-        System.out.println("[extractInput] class : " + clazz);
+       // System.out.println("[extractInput] class : " + clazz);
         for (Field field : clazz.getDeclaredFields()) {
             if (field.isAnnotationPresent(Input.class)) {
                 field.setAccessible(true);
-                System.out.println("[extractInput] field : " + field);
+               // System.out.println("[extractInput] field : " + field);
                 Class<?> validationClass = field.getType();
-                System.out.println("[extractInput] validationClass : " + validationClass);
+             //   System.out.println("[extractInput] validationClass : " + validationClass);
                 field.set(command, getObject(validationClass, command.getRequestObject().getRequestData()));
             }
         }
@@ -47,15 +47,16 @@ public class BodyValidator {
         for (Field field : validationClass.getDeclaredFields()) {
             if (field.isAnnotationPresent(NotNull.class)) {
                 field.setAccessible(true);
-                System.out.println("getObject() field : " + field);
+              /*  System.out.println("getObject() field : " + field);
                 System.out.println(object);
                 System.out.println("getObject() field.get(object)" + field.get(object));
+                */
                 if (field.get(object) == null)
                     throw new ValidationException(field.getName() + " is null");
 
             }
         }
-        System.out.println("getObject object" + object);
+       // System.out.println("getObject object" + object);
         return object;
     }
 }

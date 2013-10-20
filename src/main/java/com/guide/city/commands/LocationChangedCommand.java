@@ -18,11 +18,12 @@ public class LocationChangedCommand extends ACommand {
     public GenericResponse execute() throws ApplicationException {
         try {
             IGeolocationBean geolocationBean = BeanFactory.getGeolocationBean();
-            GenericResponse response = geolocationBean.locationChanged(requestEntity,getRequest().getSession(),request);
+            GenericResponse response = geolocationBean
+                    .locationChanged(requestEntity, getRequest().getSession(), request);
             return response;
         }
         catch (Exception e) {
-            logger.severe("Exception in LocationChangedCommand");
+            logger.severe("Exception in LocationChangedCommand " + e.getMessage());
             throw new ApplicationException("Exception in LocationChangedCommand", e);
         }
     }

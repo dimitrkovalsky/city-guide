@@ -15,7 +15,7 @@ import org.codehaus.jackson.map.annotate.JsonView;
 public class GameTimerEntity {
     @Id
     @Indexed
-    @JsonView(Views.Public.class)
+    @JsonView(Views.Private.class)
     private String deviceId;
     @JsonView(Views.Public.class)
     private Long started;
