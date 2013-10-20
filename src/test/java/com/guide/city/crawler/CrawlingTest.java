@@ -33,7 +33,7 @@ public class CrawlingTest {
     }
 
     @Test
-    public void TestFindStreetByLocation() throws IOException, JSONException {
+    public void TestFindStreetByLocation() throws Exception {
         System.out.println(GoogleHelper.getStreetName(new Location(49.237319, 28.487782)));
     }
 }
