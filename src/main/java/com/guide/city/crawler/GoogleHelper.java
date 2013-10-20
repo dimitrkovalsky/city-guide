@@ -34,9 +34,11 @@ public class GoogleHelper {
                             final StringBuffer buffer = new StringBuffer();
                             buffer.append(input.getKey());// получаем значение вида key=value
                             buffer.append('=');
-                            buffer.append(URLEncoder.encode(input.getValue(), "utf-8"));// кодируем строку в соответствии со стандартом HTML 4.01
+                            buffer.append(URLEncoder.encode(input.getValue(),
+                                    "utf-8"));// кодируем строку в соответствии со стандартом HTML 4.01
                             return buffer.toString();
-                        } catch (final UnsupportedEncodingException e) {
+                        }
+                        catch (final UnsupportedEncodingException e) {
                             throw new RuntimeException(e);
                         }
                     }
@@ -60,12 +62,13 @@ public class GoogleHelper {
             final String jsonText = readAll(rd);
             final JSONObject json = new JSONObject(jsonText);
             return json;
-        } finally {
+        }
+        finally {
             is.close();
         }
     }
 
-    public static String getStreetName(Location location) throws IOException, JSONException {
+    public static String getStreetName(Location location) throws Exception {
         Map<String, String> params = Maps.newHashMap();
         params.put("language", "ru");// язык данных, на котором мы хотим получить
         params.put("sensor", "false");// исходит ли запрос на геокодирование от устройства с датчиком местоположения
@@ -73,6 +76,6 @@ public class GoogleHelper {
         // широта разделяется запятой, берем из предыдущего примера
         params.put("latlng", location.toGoogleStringFormat());
         String streetName = GoogleResponseCreator.getStreet(params);
-        return streetName.substring(0,streetName.indexOf(","));
+        return streetName.substring(0, streetName.indexOf(","));
     }
 }
