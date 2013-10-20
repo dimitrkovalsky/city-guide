@@ -28,16 +28,20 @@ public class GeolocationBean implements IGeolocationBean {
     public GenericResponse locationChanged(GeolocationRequestEntity requestEntity, SessionEntity session,
             GenericRequest request) throws ApplicationException {
         GeolocationDAO geolocationDAO = DAOFactory.getGeolocationDAO();
+        if (session == null) {
+            System.out.println("Session null");
+        }
         GeolocationEntity geolocationEntity = new GeolocationEntity(session.getDeviceId(), requestEntity);
         geolocationDAO.save(geolocationEntity);
 
         //GenericResponse response = ResponseFactory.createResponse(request);
-        GenericResponse result = checkPlaceFound(geolocationEntity, request);
+        GenericResponse result = checkInterestingInformation(geolocationEntity, request);
         if (result != null)
             return result;
-        result = checkInterestingInformation(geolocationEntity, request);
+        result = checkPlaceFound(geolocationEntity, request);
         if (result != null)
             return result;
+
         return ResponseFactory.createResponse(request);
     }
 
@@ -85,6 +89,7 @@ public class GeolocationBean implements IGeolocationBean {
         GameTimerDAO gameTimerDAO = DAOFactory.getGameTimerDAO();
         if (gameTimerDAO.findByDeviceId(session.getDeviceId()) != null) {
             GenericResponse result = ResponseFactory.createResponse(request, ResponseType.ANOTHER_GAME_IN_PROGRESS);
+            //return ResponseFactory.createResponse(request, ResponseType.ANOTHER_GAME_IN_PROGRESS);
         }
         GameTimerEntity timerEntity = new GameTimerEntity(session.getDeviceId(), System.currentTimeMillis());
         timerEntity.setTimeLeft(GAME_PERIOD);
@@ -121,6 +126,11 @@ public class GeolocationBean implements IGeolocationBean {
             return null;
 
         VisitedPlacesEntity visitedPlacesEntity = visitedPlacesDAO.findByDeviceId(geolocationEntity.getDeviceId());
+        if(visitedPlacesEntity == null){
+            visitedPlacesEntity = new VisitedPlacesEntity();
+            visitedPlacesEntity.setDeviceId(geolocationEntity.getDeviceId());
+            visitedPlacesDAO.save(visitedPlacesEntity);
+        }
         if (visitedPlacesEntity.checkVisitedPlace(placeEntity.getId()))
             return null;
         LocationTimerDAO locationTimerDAO = DAOFactory.getLocationTimerDAO();
@@ -140,12 +150,19 @@ public class GeolocationBean implements IGeolocationBean {
         VisitedPlacesDAO visitedPlacesDAO = DAOFactory.getVisitedPlacesDAO();
         StreetDAO streetDAO = DAOFactory.getStreetDAO();
         StreetEntity streetEntity = streetDAO.findNear(geolocationEntity.getLocation());
+        System.out.println("Location : " + geolocationEntity.getLocation());
+        System.out.println("Street : " + streetEntity);
         if (streetEntity == null)
             return null;
         VisitedPlacesEntity visitedPlacesEntity = visitedPlacesDAO.findByDeviceId(geolocationEntity.getDeviceId());
-        if (visitedPlacesEntity.checkVisitedStreet(streetEntity.getId()))
-            return null;
-        visitedPlacesEntity.addVisitedStreet(streetEntity.getId());
+        if(visitedPlacesEntity == null){
+            visitedPlacesEntity = new VisitedPlacesEntity();
+            visitedPlacesEntity.setDeviceId(geolocationEntity.getDeviceId());
+            visitedPlacesDAO.save(visitedPlacesEntity);
+        }
+//        if (visitedPlacesEntity.checkVisitedStreet(streetEntity.getId()))
+//            return null;
+       // visitedPlacesEntity.addVisitedStreet(streetEntity.getId());
         visitedPlacesDAO.save(visitedPlacesEntity);
 
         GenericResponse result = ResponseFactory.createResponse(request, ResponseType.INTERESTING_INFORMATION);

@@ -14,7 +14,7 @@ import java.util.List;
  * Date: 10/19/13
  * Time: 7:39 PM
  */
-public class StreetDAO extends BasicDAO<StreetEntity, Integer>    {
+public class StreetDAO extends BasicDAO<StreetEntity, Integer> {
 
     public StreetDAO(Datastore datastore) {
         super(datastore);
@@ -31,7 +31,10 @@ public class StreetDAO extends BasicDAO<StreetEntity, Integer>    {
 
     public StreetEntity find(String name) throws DAOException {
         try {
-            return super.findOne("name", name);
+            System.out.println("Name : " + name);
+            StreetEntity s = super.findOne("nam", name);
+            System.out.println("Find : " + s);
+            return s;
         }
         catch (Exception e) {
             throw new DAOException(e);
@@ -58,13 +61,14 @@ public class StreetDAO extends BasicDAO<StreetEntity, Integer>    {
     public StreetEntity findNear(Location location) throws DAOException {
         try {
             String streetName = GoogleHelper.getStreetName(location);
+            System.out.println("Street name : " + streetName);
             if (streetName == null || streetName.isEmpty()) {
                 return null;
             }
             return find(streetName);
         }
         catch (Exception e) {
-            throw new DAOException(e);
+            return null;
         }
     }
 }

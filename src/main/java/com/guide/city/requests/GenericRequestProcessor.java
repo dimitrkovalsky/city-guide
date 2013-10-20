@@ -22,6 +22,7 @@ public class GenericRequestProcessor extends ARequestProcessor {
     @Override
     protected boolean validateBase() {
         String requestData = getHttpRequest().getParameter("request");
+        System.out.println("request: " + requestData);
         if (requestData == null || requestData.length() == 0)
             return false;
         else
@@ -31,7 +32,7 @@ public class GenericRequestProcessor extends ARequestProcessor {
     @Override
     protected GenericRequest getRequestObject() throws ValidationException {
         String requestData = getHttpRequest().getParameter("request");
-        //     System.out.println("REQUEST>>>>>>>>> " + requestData);
+        System.out.println("REQUEST>>>>>>>>> " + requestData);
         JsonMapper mapper = new JsonMapper();
 
         try {
@@ -48,6 +49,7 @@ public class GenericRequestProcessor extends ARequestProcessor {
     @Override
     protected boolean validateAuthentication() {
         String securityToken = getHttpRequest().getParameter("sk");
+        System.out.println("SK : " + securityToken);
         if (securityToken == null || securityToken.isEmpty()) {
             if (getGenericRequest().getRequestType() != RequestType.RT_AUTHENTICATE)
                 return false;

@@ -43,15 +43,16 @@ public class PlaceDAO extends BasicDAO<PlaceEntity, Integer> {
     public PlaceEntity findNear(Location location) throws DAOException {
         try {
             List<PlaceEntity> places = getDatastore().find(PlaceEntity.class).field("location")
-                    .near(location.getLatitude(), location.getLongitude(), 0.05 / 111.12).limit(1).asList();
+                    .near(location.getLatitude(), location.getLongitude(), 0.5).limit(1).asList();
             if (places == null || places.isEmpty()) {
                 return null;
-            } else {
+            }
+            else {
                 return places.get(0);
             }
         }
         catch (Exception e) {
-            throw new DAOException(e);
+            return null;
         }
     }
 }
