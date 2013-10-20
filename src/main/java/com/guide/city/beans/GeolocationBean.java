@@ -17,6 +17,10 @@ import com.guide.city.responses.entities.TimeLeftResponse;
 import com.guide.city.types.GameStatus;
 import com.guide.city.types.ResponseType;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class GeolocationBean implements IGeolocationBean {
     private static int GAME_PERIOD = 24 * 60 * 60; // seconds
 
@@ -67,6 +71,14 @@ public class GeolocationBean implements IGeolocationBean {
     @Override
     public GenericResponse gameStart(GeolocationRequestEntity requestEntity, SessionEntity session,
             GenericRequest request) throws ApplicationException {
+        VisitedPlacesDAO visitedPlacesDAO = DAOFactory.getVisitedPlacesDAO();
+        VisitedPlacesEntity visitedPlacesEntity = visitedPlacesDAO.findByDeviceId(session.getDeviceId());
+        if (visitedPlacesEntity == null) {
+            visitedPlacesEntity = new VisitedPlacesEntity();
+            visitedPlacesEntity.setDeviceId(session.getDeviceId());
+        }
+        visitedPlacesEntity.setStatus(GameStatus.IN_PROGRESS);
+        visitedPlacesDAO.save(visitedPlacesEntity);
         GeolocationDAO geolocationDAO = DAOFactory.getGeolocationDAO();
         GeolocationEntity geolocationEntity = new GeolocationEntity(session.getDeviceId(), requestEntity);
         geolocationDAO.save(geolocationEntity);
@@ -81,8 +93,7 @@ public class GeolocationBean implements IGeolocationBean {
     }
 
     @Override
-    public GenericResponse gameCompleted(SessionEntity session,
-            GenericRequest request) throws ApplicationException {
+    public GenericResponse gameCompleted(SessionEntity session, GenericRequest request) throws ApplicationException {
         GameTimerDAO gameTimerDAO = DAOFactory.getGameTimerDAO();
         GameTimerEntity timerEntity = gameTimerDAO.findByDeviceId(session.getDeviceId());
         if (timerEntity == null) {
@@ -142,5 +153,23 @@ public class GeolocationBean implements IGeolocationBean {
         return result;
     }
 
+    public List<LeaderboardEntity> getLeaderboard() {
+        List<LeaderboardEntity> list = new ArrayList<LeaderboardEntity>();
+        try {
+            VisitedPlacesDAO visitedPlacesDAO = DAOFactory.getVisitedPlacesDAO();
+            AccountDAO accountDAO = DAOFactory.getAccountDAO();
+            for (VisitedPlacesEntity vpe : visitedPlacesDAO.findAll()) {
+                AccountEntity accountEntity = accountDAO.findByDeviceId(vpe.getDeviceId());
+                if (accountEntity == null)
+                    continue;
+                LeaderboardEntity leaderboard = new LeaderboardEntity(vpe, accountEntity.getName());
+                list.add(leaderboard);
+            }
+            Collections.sort(list);
+        }
+        catch (Exception e) {
+        }
+        return list;
+    }
 
 }
