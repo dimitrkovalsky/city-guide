@@ -4,6 +4,7 @@ import com.google.code.morphia.Datastore;
 import com.google.code.morphia.dao.BasicDAO;
 import com.guide.city.entities.AccountEntity;
 import com.guide.city.exceptions.DAOException;
+import com.mongodb.BasicDBObject;
 import org.bson.types.ObjectId;
 
 
@@ -34,6 +35,18 @@ public class AccountDAO extends BasicDAO<AccountEntity, ObjectId> {
         try {
             return super.findOne("googleId", googleId);
         }
+        catch (Exception e) {
+            throw new DAOException(e);
+        }
+    }
+
+    public void update(AccountEntity account) throws DAOException {
+
+        try {
+            getCollection().remove(new BasicDBObject().append("googleId", account.getGoogleId()));
+            save(account);
+        }
+
         catch (Exception e) {
             throw new DAOException(e);
         }
