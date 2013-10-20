@@ -70,7 +70,7 @@ public class GoogleHelper {
 
     public static String getStreetName(Location location) throws Exception {
         Map<String, String> params = Maps.newHashMap();
-        params.put("language", "ru");// язык данных, на котором мы хотим получить
+        params.put("language", "en");// язык данных, на котором мы хотим получить
         params.put("sensor", "false");// исходит ли запрос на геокодирование от устройства с датчиком местоположения
         // текстовое значение широты/долготы, для которого следует получить ближайший понятный человеку адрес, долгота и
         // широта разделяется запятой, берем из предыдущего примера
