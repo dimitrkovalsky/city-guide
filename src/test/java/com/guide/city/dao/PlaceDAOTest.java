@@ -15,10 +15,10 @@ public class PlaceDAOTest {
 
     @Test
     public void testMethod() throws Exception {
-        insert();
+        //insert();
         //        update();
         //        find();
-        //        findAll();
+        findAll();
     }
 
     public void insert() throws Exception {
@@ -58,17 +58,16 @@ public class PlaceDAOTest {
 
     public PlaceEntity getEntity() throws IOException, JSONException {
         JSONObject response = GoogleHelper
-                .read("https://maps.googleapis.com/maps/api/place/textsearch/json?sensor=false&query=%D0%9C%D1%83%D0%B7%D0%B5%D0%B9+%D0%B8%D0%BC.+%D0%9C.%D0%9A%D0%BE%D1%86%D1%8E%D0%B1%D0%B8%D0%BD%D1%81%D0%BA%D0%BE%D0%B3%D0%BE+%D1%83%D0%BB.+%D0%91%D0%B5%D0%B2%D0%B7%D0%B0+%D0%92%D0%B8%D0%BD%D0%BD%D0%B8%D1%86%D0%B0%2C+%D0%92%D0%B8%D0%BD%D0%BD%D0%B8%D1%86%D0%BA%D0%B0%D1%8F+%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C&key=AIzaSyCd5bBuiljMgprbV2NbHZwVT4V-A2_nKE8");
+                .read("https://maps.googleapis.com/maps/api/place/textsearch/json?sensor=false&query=%D0%A6%D0%B5%D1%80%D0%BA%D0%BE%D0%B2%D1%8C+%D0%95%D0%A5%D0%91+%22%D0%94%D0%BE%D0%BC+%D0%95%D0%B2%D0%B0%D0%BD%D0%B3%D0%B5%D0%BB%D0%B8%D1%8F%22%2C+%D1%83%D0%BB%D0%B8%D1%86%D0%B0+%D0%9C%D0%B0%D0%BA%D1%81%D0%B8%D0%BC%D0%BE%D0%B2%D0%B8%D1%87%D0%B0%2C+%D0%92%D0%B8%D0%BD%D0%BD%D0%B8%D1%86%D0%B0%2C+%D0%92%D0%B8%D0%BD%D0%BD%D0%B8%D1%86%D0%BA%D0%B0%D1%8F+%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C&key=AIzaSyCd5bBuiljMgprbV2NbHZwVT4V-A2_nKE8");
         JSONObject location = response.getJSONArray("results").getJSONObject(0);
-        PlaceEntity entity = new PlaceEntity(5);
+        PlaceEntity entity = new PlaceEntity(13);
         entity.setName(location.getString("name"));
-        entity.setLocation(new Location(49.237319, 28.487782));
-        entity.setTypes(new String[]{"museum", "establishment"});
+        entity.setLocation(new Location(49.235831, 28.42604));
+        entity.setTypes(new String[]{"church", "place_of_worship", "establishment"});
         entity.setFormattedAddress(location.getString("formatted_address"));
         entity.setInformation(
-                "Литературно-мемориальный музей М. Коцюбинского открыт в доме, в котором будущий писатель родился и прожил до 33 лет. Усадьбу построил его дед М. Абаза в нач. XIX в., купив землю на окраине Винницы, на Замостье. В 1926 г., по инициативе брата писателя, была проведена реставрация и создан музей. Экспозиция построена по монографическому принципу и размещена в пяти комнатах родительского дома Коцюбинского. Экспонаты (прижизненные издания, переводы, живопись) последовательно раскрывают творческий путь писателя и его общественную деятельность.");
-        entity.setImageUrl(
-                new String[]{"http://vinnitsa.mesto.ua/media/upload_flatpages/2013/05/26/18_full.jpg", "http://tourlib.net/statti_tourism/images/museum_k.jpg"});
+                "Баптистская церковь в городе Виннице была основана в 1917 году. Первое служение состоялось 7 апреля 1917 г. в помещении государственного банка (сейчас 19-я школа), которое проводил брат Франс Жадкевич, будущий пресвитер Винницкой баптистской церкви. В конце 80-х годов здание уже не вмещало всех желающих и было решено строить новое здание по улице Максимовича. Строительство новой церкви началось в 1990 году и официальное открытие состоялось 21 июля 1996 г. Среди пяти баптистских церквей города, церковь \"Дом Евангелия\" сейчас самая большая - 1500 членов церкви.");
+        entity.setImageUrl(new String[]{"http://static.panoramio.com/photos/large/66750585.jpg"});
         return entity;
     }
 }

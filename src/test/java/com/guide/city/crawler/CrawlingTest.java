@@ -22,10 +22,10 @@ public class CrawlingTest {
         System.out.println(jsonObject.toString());
     }
 
-    //@Test
+    //    @Test
     public void TestTextSearchPlace() throws IOException, JSONException {
         final Map<String, String> params = Maps.newHashMap();
-        params.put("query", "ул. Соборная, 19 Винница Винницкая область");
+        params.put("query", "улица Василия Порика, 7");
         params.put("sensor", "false");
         params.put("key", GoogleHelper.GOOGLE_APPLICATION_KEY);
         JSONObject jsonObject = GoogleResponseCreator.getTextSearchPlace(params);
@@ -33,7 +33,7 @@ public class CrawlingTest {
     }
 
     @Test
-    public void TestFindStreetByLocation() throws IOException, JSONException {
-        System.out.println(GoogleHelper.getStreetName(new Location(49.237319, 28.487782)));
+    public void TestFindStreetByLocation() throws Exception {
+        System.out.println(GoogleHelper.getStreetName(new Location(49.2293288, 28.4236293)));
     }
 }
