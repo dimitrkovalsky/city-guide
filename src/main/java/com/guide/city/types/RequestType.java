@@ -23,6 +23,7 @@ public interface RequestType {
     @Handler(LocationChangedCommand.class)
     public static int RT_LOCATION_CHANGED = 110;
 
+    @Handler(LocationCompletedCommand.class)
     public static int LOCATION_COMPLETED = 120;
 
     @Handler(PlaceGetCommand.class)
@@ -37,7 +38,9 @@ public interface RequestType {
     @Handler(StreetGetListCommand.class)
     public static int RT_STREETS_GET_LIST = 141;
 
+    @Handler(GameStartCommand.class)
     public static int START_GAME = 101;
 
+    @Handler(GameCompletedCommand.class)
     public static int GAME_COMPLETED = 200;
 }
