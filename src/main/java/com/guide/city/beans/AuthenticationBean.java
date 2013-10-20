@@ -59,6 +59,7 @@ public class AuthenticationBean implements IAuthenticationBean {
         try {
             // TODO : validate device id
             AccountEntity accountEntity = new AccountEntity();
+            accountEntity.setGoogleId(data.getGoogleId());
             accountEntity.setAccountId(new ObjectId());
             accountEntity.setDeviceId(data.getDeviceId());
             DAOFactory.getAccountDAO().save(accountEntity);

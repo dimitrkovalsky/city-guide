@@ -20,6 +20,13 @@ public class VisitedPlacesEntity {
     private List<VisitedEmbedded> places;
     @JsonView(Views.Public.class)
     private List<Integer> streets;
+    @JsonView(Views.Public.class)
+    private Integer status;
+    @JsonView(Views.Public.class)
+    private Integer lastPoints;
+
+    @JsonView(Views.Public.class)
+    private Long time;
 
     public String getDeviceId() {
         return deviceId;
@@ -40,7 +47,7 @@ public class VisitedPlacesEntity {
     }
 
     public boolean checkVisitedPlace(Integer id) {
-        return getPlaces().contains(id);
+        return getPlaces().contains(new VisitedEmbedded(id));
     }
 
     public void addVisitedPlace(VisitedEmbedded place) {
@@ -77,5 +84,29 @@ public class VisitedPlacesEntity {
 
     public boolean checkVisitedStreet(Integer id) {
         return getStreets().contains(id);
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Integer getLastPoints() {
+        return lastPoints;
+    }
+
+    public void setLastPoints(Integer lastPoints) {
+        this.lastPoints = lastPoints;
+    }
+
+    public Long getTime() {
+        return time;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
     }
 }

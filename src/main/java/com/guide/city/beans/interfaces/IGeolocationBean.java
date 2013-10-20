@@ -12,4 +12,8 @@ public interface IGeolocationBean {
 
     GenericResponse locationCompleted(SessionEntity session, GenericRequest request)
             throws ApplicationException;
+
+    GenericResponse gameCompleted(SessionEntity session, GenericRequest request) throws ApplicationException;
+
+    GenericResponse gameStart(GeolocationRequestEntity requestEntity, SessionEntity session, GenericRequest request) throws ApplicationException;
 }

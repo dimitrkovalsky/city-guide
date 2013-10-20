@@ -1,5 +1,6 @@
 package com.guide.city.entities;
 
+import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Id;
 import com.google.code.morphia.annotations.Indexed;
 import com.guide.city.helpers.Views;
@@ -10,6 +11,7 @@ import org.codehaus.jackson.map.annotate.JsonView;
  * Date: 20.10.13
  * Time: 9:08
  */
+@Entity(value = "game_timer", noClassnameStored = true)
 public class GameTimerEntity {
     @Id
     @Indexed
