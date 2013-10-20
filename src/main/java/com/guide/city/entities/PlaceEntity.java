@@ -12,25 +12,21 @@ import java.util.Arrays;
 public class PlaceEntity {
 
     @Id
-    @JsonView(Views.Key.class)
+    @JsonView(Views.Public.class)
     private Integer id;
-
+    @JsonView(Views.Public.class)
+    private Integer cityId;
     @Embedded
     @JsonView(Views.Public.class)
     private Location location;
-
     @JsonView(Views.Public.class)
     private String name;
-
     @JsonView(Views.Public.class)
     private String formattedAddress;
-
     @JsonView(Views.Public.class)
     private String[] types;
-
     @JsonView(Views.Public.class)
     private String information;
-
     @JsonView(Views.Public.class)
     private String[] imageUrl;
 
@@ -107,5 +103,13 @@ public class PlaceEntity {
                 ", information='" + information + '\'' +
                 ", imageUrl=" + Arrays.toString(imageUrl) +
                 '}';
+    }
+
+    public Integer getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
     }
 }

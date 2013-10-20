@@ -25,4 +25,8 @@ public interface RequestType {
     public static int RT_LOCATION_CHANGED = 110;
 
     public static  int LOCATION_COMPLETED = 120;
+
+    public static int START_GAME = 101;
+
+    public static int GAME_COMPLETED =  200;
 }

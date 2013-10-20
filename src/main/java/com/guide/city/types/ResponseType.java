@@ -10,4 +10,8 @@ public interface ResponseType {
     public static int INTERESTING_INFORMATION = 112;
     public static int LOCATION_COMPLETED = 121;
     public static int TIME_LEFT = 122;
+    public static int LOCATION_COMPLETED_FAIL = 123;
+
+    public static int START_GAME = 101;
+    public static int ANOTHER_GAME_IN_PROGRESS = 102;
 }

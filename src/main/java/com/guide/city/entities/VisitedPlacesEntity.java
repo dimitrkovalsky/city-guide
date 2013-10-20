@@ -17,7 +17,7 @@ public class VisitedPlacesEntity {
     @JsonView(Views.Public.class)
     private String deviceId;
     @JsonView(Views.Public.class)
-    private List<Integer> places;
+    private List<VisitedEmbedded> places;
     @JsonView(Views.Public.class)
     private List<Integer> streets;
 
@@ -29,13 +29,13 @@ public class VisitedPlacesEntity {
         this.deviceId = deviceId;
     }
 
-    public List<Integer> getPlaces() {
+    public List<VisitedEmbedded> getPlaces() {
         if (places == null)
-            places = new ArrayList<Integer>();
+            places = new ArrayList<VisitedEmbedded>();
         return places;
     }
 
-    public void setPlaces(List<Integer> places) {
+    public void setPlaces(List<VisitedEmbedded> places) {
         this.places = places;
     }
 
@@ -43,11 +43,11 @@ public class VisitedPlacesEntity {
         return getPlaces().contains(id);
     }
 
-    public void addVisitedPlace(Integer id) {
+    public void addVisitedPlace(VisitedEmbedded place) {
         if (places == null)
-            places = new ArrayList<Integer>();
-        if (!places.contains(id))
-            places.add(id);
+            places = new ArrayList<VisitedEmbedded>();
+        if (!places.contains(place))
+            places.add(place);
     }
 
     @Override

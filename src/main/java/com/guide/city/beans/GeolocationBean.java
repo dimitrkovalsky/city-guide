@@ -17,6 +17,7 @@ import com.guide.city.responses.entities.TimeLeftResponse;
 import com.guide.city.types.ResponseType;
 
 public class GeolocationBean implements IGeolocationBean {
+    private static int GAME_PERIOD = 24 * 60 * 60; // seconds
 
     @Override
     public GenericResponse locationChanged(GeolocationRequestEntity requestEntity, SessionEntity session,
@@ -40,6 +41,9 @@ public class GeolocationBean implements IGeolocationBean {
             throws ApplicationException {
         LocationTimerDAO locationTimerDAO = DAOFactory.getLocationTimerDAO();
         LocationTimerEntity timerEntity = locationTimerDAO.findByDeviceId(session.getDeviceId());
+        if (timerEntity == null) {
+            return ResponseFactory.createResponse(request, ResponseType.LOCATION_COMPLETED).setResponse("No timer");
+        }
         long diff = (System.currentTimeMillis() - timerEntity.getStarted()) / 1000;
         if (diff < 30) {
             GenericResponse result = ResponseFactory.createResponse(request, ResponseType.TIME_LEFT);
@@ -49,12 +53,29 @@ public class GeolocationBean implements IGeolocationBean {
         else {
             VisitedPlacesDAO visitedPlacesDAO = DAOFactory.getVisitedPlacesDAO();
             VisitedPlacesEntity visitedPlacesEntity = visitedPlacesDAO.findByDeviceId(session.getDeviceId());
-            visitedPlacesEntity.addVisitedPlace(timerEntity.getLocationId());
+            visitedPlacesEntity
+                    .addVisitedPlace(new VisitedEmbedded(timerEntity.getLocationId(), System.currentTimeMillis()));
             visitedPlacesDAO.save(visitedPlacesEntity);
+            locationTimerDAO.delete(timerEntity);
             GenericResponse result = ResponseFactory.createResponse(request, ResponseType.LOCATION_COMPLETED);
             result.setResponse(new LocationCompletedResponse(timerEntity.getLocationId()));
             return result;
         }
+    }
+
+    public GenericResponse gameStart(GeolocationRequestEntity requestEntity, SessionEntity session,GenericRequest request)
+            throws ApplicationException {
+        GeolocationDAO geolocationDAO = DAOFactory.getGeolocationDAO();
+        GeolocationEntity geolocationEntity = new GeolocationEntity(session.getDeviceId(), requestEntity);
+        geolocationDAO.save(geolocationEntity);
+        GameTimerDAO gameTimerDAO = DAOFactory.getGameTimerDAO();
+        if(gameTimerDAO.findByDeviceId(session.getDeviceId()) != null){
+            GenericResponse result = ResponseFactory.createResponse(request, ResponseType.ANOTHER_GAME_IN_PROGRESS);
+        }
+        GameTimerEntity timerEntity = new GameTimerEntity(session.getDeviceId(), System.currentTimeMillis());
+        timerEntity.setTimeLeft(GAME_PERIOD);
+        gameTimerDAO.save(timerEntity);
+
     }
 
     private GenericResponse checkPlaceFound(GeolocationEntity geolocationEntity, GenericRequest request)

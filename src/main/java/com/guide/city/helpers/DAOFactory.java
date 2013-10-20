@@ -38,19 +38,23 @@ public class DAOFactory {
         return new GeolocationDAO(datastore);
     }
 
-    public static PlaceDAO getPlaceDAO(){
+    public static PlaceDAO getPlaceDAO() {
         return new PlaceDAO(datastore);
     }
 
-    public static VisitedPlacesDAO getVisitedPlacesDAO(){
+    public static VisitedPlacesDAO getVisitedPlacesDAO() {
         return new VisitedPlacesDAO(datastore);
     }
 
-    public static LocationTimerDAO getLocationTimerDAO(){
+    public static LocationTimerDAO getLocationTimerDAO() {
         return new LocationTimerDAO(datastore);
     }
 
-    public static StreetDAO getStreetDAO(){
-        return  new StreetDAO(datastore);
+    public static StreetDAO getStreetDAO() {
+        return new StreetDAO(datastore);
+    }
+
+    public static GameTimerDAO getGameTimerDAO() {
+        return new GameTimerDAO(datastore);
     }
 }
