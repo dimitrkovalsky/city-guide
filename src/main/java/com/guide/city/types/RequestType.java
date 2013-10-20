@@ -23,12 +23,21 @@ public interface RequestType {
     @Handler(LocationChangedCommand.class)
     public static int RT_LOCATION_CHANGED = 110;
 
-    @Handler(LocationCompletedCommand.class)
-    public static  int LOCATION_COMPLETED = 120;
+    public static int LOCATION_COMPLETED = 120;
 
-    @Handler(GameStartCommand.class)
+    @Handler(PlaceGetCommand.class)
+    public static int RT_PLACE_GET = 130;
+
+    @Handler(PlaceGetListCommand.class)
+    public static int RT_PLACES_GET_LIST = 131;
+
+    @Handler(StreetGetCommand.class)
+    public static int RT_STREET_GET = 140;
+
+    @Handler(StreetGetListCommand.class)
+    public static int RT_STREETS_GET_LIST = 141;
+
     public static int START_GAME = 101;
 
-    @Handler(GameCompletedCommand.class)
-    public static int GAME_COMPLETED =  200;
+    public static int GAME_COMPLETED = 200;
 }
